@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artifact #ANT-025: The Chronicles of Antium</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        desk: '#0d0b09',
+                        parchment: '#f4ebd0',
+                        parchmentDark: '#1a1612',
+                        amberGold: '#d4af37',
+                        copperAccent: '#b87333',
+                        inkBlack: '#1c1917',
+                        fieldNoteBg: '#181512',
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'Georgia', 'serif'],
+                        body: ['Cormorant Garamond', 'Georgia', 'serif'],
+                        mono: ['Courier Prime', 'Space Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Base styles & noise background */
+        body {
+            background-color: #080706;
+            color: #d1c7bd;
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+        }
+
+        /* SVG Noise Texture Overlay */
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+        }
+
+        /* Lighting & Vignette Overlay */
+        .spotlight-overlay {
+            background: radial-gradient(circle at 50% 35%, rgba(245, 215, 160, 0.18) 0%, rgba(180, 120, 50, 0.08) 35%, rgba(8, 7, 6, 0.92) 75%, rgba(4, 3, 3, 0.99) 100%);
+            pointer-events: none;
+        }
+
+        /* Desk Wood Grain Texture */
+        .wood-texture {
+            background-color: #0e0c0a;
+            background-image: 
+                radial-gradient(ellipse at 50% 40%, rgba(60, 42, 28, 0.5) 0%, rgba(15, 11, 8, 0.95) 80%),
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 2px, transparent 2px, transparent 8px);
+        }
+
+        /* Drop Shadow & Ambient Occlusion System */
+        .desk-shadow-lg {
+            box-shadow: 
+                0 30px 60px -12px rgba(0, 0, 0, 0.95),
+                0 18px 36px -18px rgba(0, 0, 0, 0.85),
+                inset 0 1px 1px rgba(255, 255, 255, 0.08);
+        }
+        
+        .brass-shine {
+            background: linear-gradient(135deg, #e6ca65 0%, #99742a 45%, #e6ca65 55%, #664d19 100%);
+        }
+
+        /* Magnifying Glass Lens Effect */
+        .lens-glare {
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.15) 100%);
+        }
+
+        /* Dynamic Visual Parchment Decay Progression */
+        .decay-stage-1 { /* Clean & Elegant */
+            background-color: #f3ebd3;
+            color: #26211c;
+            border-color: #d1c0a5;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .decay-stage-2 { /* Subtle Water Stains & Aging */
+            background-color: #e9debf;
+            color: #221d18;
+            border-color: #bfa885;
+            background-image: radial-gradient(circle at 70% 20%, rgba(160, 120, 60, 0.08) 0%, transparent 60%);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+        }
+
+        .decay-stage-3 { /* Yellowed, Fraying & Weathered */
+            background-color: #d8c69d;
+            color: #1e1813;
+            border-color: #9e845d;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 80, 30, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 85% 65%, rgba(140, 90, 40, 0.1) 0%, transparent 45%);
+            filter: contrast(1.02);
+        }
+
+        .decay-stage-4 { /* Charred Edges & Dust Covered Ruin */
+            background-color: #bfa577;
+            color: #14100c;
+            border-color: #5c472f;
+            background-image: 
+                radial-gradient(circle at 50% 50%, transparent 30%, rgba(20, 15, 10, 0.35) 95%),
+                repeating-radial-gradient(circle at 10% 10%, rgba(30, 20, 10, 0.05) 0, rgba(30, 20, 10, 0.05) 10px, transparent 10px, transparent 20px);
+            border-style: dashed;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.7), 0 15px 40px rgba(0,0,0,0.9);
+        }
+
+        /* Monospace Metadata Styling */
+        .meta-tag {
+            font-family: 'Courier Prime', monospace;
+            letter-spacing: 0.05em;
+        }
+
+        /* Glassmorphism Navigation Drawer */
+        .glass-panel {
+            background: rgba(18, 15, 12, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080706;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #332b22;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+
+        /* Lock Body Scrolling initially */
+        body.locked {
+            overflow: hidden;
+        }
+
+        /* Interactive Magnifier Zoom Container */
+        .magnifier-active .entry-text {
+            cursor: zoom-in;
+        }
+
+        .magnifier-lens {
+            pointer-events: none;
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border: 3px solid #d4af37;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8), inset 0 0 15px rgba(255,255,255,0.3);
+            background-repeat: no-repeat;
+            display: none;
+            z-index: 50;
+        }
+
+        /* Pulse glow animation */
+        @keyframes subtlePulse {
+            0%, 100% { opacity: 0.85; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+        .pulse-glow {
+            animation: subtlePulse 4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="locked bg-desk text-stone-300 antialiased selection:bg-amberGold selection:text-black bg-noise">
+
+    <!-- MAGNIFYING LENS ELEMENT -->
+    <div id="magnifierLens" class="magnifier-lens"></div>
+
+    <!-- CANVAS DUST PARTICLES OVERLAY -->
+    <canvas id="dustCanvas" class="fixed inset-0 pointer-events-none z-30 opacity-70"></canvas>
+
+    <!-- VOLUMETRIC SPOTLIGHT & AMBIENT OCCLUSION OVERLAY -->
+    <div class="fixed inset-0 spotlight-overlay z-20 pointer-events-none"></div>
+
+    <!-- TOP STICKY HUD BAR (Reveals on excavation scroll) -->
+    <header id="stickyHUD" class="fixed top-0 left-0 right-0 z-40 transform -translate-y-full transition-transform duration-700 ease-out glass-panel px-6 py-3 flex items-center justify-between shadow-2xl">
+        <div class="flex items-center space-x-4">
+            <span class="text-xs font-mono tracking-widest text-amberGold uppercase flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-amberGold animate-ping"></span>
+                CATALOG #ANT-025
+            </span>
+            <span class="hidden md:inline text-stone-500">|</span>
+            <span id="eraIndicator" class="hidden md:inline text-xs font-mono text-stone-400">ERA I: EARLY SETTLEMENT</span>
+        </div>
+
+        <!-- Central Progress Track -->
+        <div class="flex-1 max-w-md mx-6">
+            <div class="flex justify-between text-[10px] font-mono text-stone-400 mb-1">
+                <span>ENTRY 01</span>
+                <span id="progressPercent">0% READ</span>
+                <span>ENTRY 16</span>
+            </div>
+            <div class="w-full h-1 bg-stone-800 rounded-full overflow-hidden">
+                <div id="progressBar" class="h-full bg-amberGold transition-all duration-300" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Controls Group -->
+        <div class="flex items-center space-x-3">
+            <!-- Audio Toggle -->
+            <button id="audioBtn" class="p-2 rounded-full bg-stone-900 border border-stone-800 hover:border-amberGold/50 text-stone-400 hover:text-amberGold transition-colors" title="Toggle Ambient Audio">
+                <i data-lucide="volume-x" class="w-4 h-4"></i>
+            </button>
+            <!-- Magnifier Toggle -->
+            <button id="magnifierBtn" class="p-2 rounded-full bg-stone-900 border border-stone-800 hover:border-amberGold/50 text-stone-400 hover:text-amberGold transition-colors" title="Toggle Magnifying Glass Mode">
+                <i data-lucide="search" class="w-4 h-4"></i>
+            </button>
+            <!-- Timeline Drawer Toggle -->
+            <button id="drawerBtn" class="p-2 rounded-full bg-stone-900 border border-stone-800 hover:border-amberGold/50 text-stone-400 hover:text-amberGold transition-colors" title="Open Timeline Index">
+                <i data-lucide="menu" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- TIMELINE DRAWER SLIDEOUT -->
+    <aside id="timelineDrawer" class="fixed top-0 right-0 h-full w-80 max-w-full z-50 transform translate-x-full transition-transform duration-500 ease-in-out glass-panel shadow-2xl p-6 flex flex-col">
+        <div class="flex justify-between items-center pb-4 border-b border-stone-800">
+            <h3 class="font-serif text-lg font-bold text-amberGold tracking-wider">CHRONICLE INDEX</h3>
+            <button id="closeDrawerBtn" class="text-stone-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
+        <div class="text-xs font-mono text-stone-500 my-3">JUMP TO RECORDED ENTRY</div>
+        <div id="drawerList" class="flex-1 overflow-y-auto space-y-2 pr-1">
+            <!-- Populated via JS -->
+        </div>
+    </aside>
+
+    <!-- MAIN CONTAINER -->
+    <main class="relative z-10 w-full min-h-screen">
+
+        <!-- SECTION 1: LOCKED HERO ARCHAEOLOGIST DESK VIEW -->
+        <section id="heroDesk" class="w-full h-screen relative flex items-center justify-center wood-texture overflow-hidden">
+            
+            <!-- Table Workstation Layout -->
+            <div id="tableWorkstation" class="relative w-full max-w-5xl h-[85vh] mx-auto p-4 flex flex-col items-center justify-between transition-transform duration-1000 ease-out">
+                
+                <!-- Vintage Artifact Elements Spread on Table -->
+                
+                <!-- Specimen Tag (Top Left) -->
+                <div class="absolute top-8 left-8 md:left-12 z-20 bg-[#ebdcb9] text-stone-900 p-3 font-mono text-xs shadow-xl rotate-[-6deg] border border-stone-400 flex flex-col gap-1 w-44 desk-shadow-lg">
+                    <div class="flex justify-between border-b border-stone-500 pb-1">
+                        <span class="font-bold">DEPT. ARCHAEOLOGY</span>
+                        <span>#ANT-025</span>
+                    </div>
+                    <span>LOC: Lower Delta, Grid 4</span>
+                    <span>DATE: 2026 RECOVERY</span>
+                    <span class="text-[10px] text-stone-600 mt-1 italic">Status: Fragile Organic</span>
+                </div>
+
+                <!-- Brass Calliper Tool (Top Right) -->
+                <div class="absolute top-12 right-10 md:right-16 z-10 w-48 h-12 opacity-80 pointer-events-none rotate-[25deg] hidden sm:block">
+                    <div class="w-full h-2 brass-shine rounded shadow-2xl"></div>
+                    <div class="w-4 h-12 brass-shine absolute top-0 left-6 rounded-b"></div>
+                    <div class="w-4 h-16 brass-shine absolute top-0 right-10 rounded-b"></div>
+                </div>
+
+                <!-- Antique Brass Magnifying Glass (Mid Right) -->
+                <div class="absolute top-1/3 right-8 md:right-24 z-20 w-32 h-32 rounded-full border-8 border-amber-700/80 desk-shadow-lg flex items-center justify-center lens-glare backdrop-blur-[1px] rotate-[15deg] group cursor-pointer transition-transform hover:scale-105" id="heroMagnifierIcon" title="Inspect Desk Detail">
+                    <div class="w-3 h-28 brass-shine absolute top-28 left-1/2 -translate-x-1/2 rounded-b-md shadow-2xl"></div>
+                    <span class="text-[9px] font-mono text-amber-200/60 uppercase tracking-widest pointer-events-none">Antium Glass</span>
+                </div>
+
+                <!-- Antique Fountain Pen & Ink Bottle (Bottom Left) -->
+                <div class="absolute bottom-16 left-10 z-20 hidden md:flex items-center space-x-3 rotate-[-12deg]">
+                    <!-- Inkwell -->
+                    <div class="w-10 h-10 bg-stone-950 border border-stone-700 rounded-b-lg desk-shadow-lg flex items-center justify-center">
+                        <div class="w-4 h-4 rounded-full bg-stone-900 border border-stone-800"></div>
+                    </div>
+                    <!-- Pen -->
+                    <div class="w-44 h-2 bg-gradient-to-r from-stone-900 via-amber-900 to-amber-600 rounded-full shadow-lg"></div>
+                </div>
+
+                <!-- CENTRAL HERO CARD & JOURNAL COVER -->
+                <div class="my-auto relative z-20 text-center max-w-2xl px-6 py-10 bg-[#14110e]/90 border border-amber-900/40 rounded-xl desk-shadow-lg backdrop-blur-md flex flex-col items-center">
+                    
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-950/60 border border-amber-800/40 text-amber-400 text-xs font-mono tracking-widest mb-4">
+                        <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> RESTRICTED ARCHIVAL RECORD
+                    </div>
+
+                    <h1 class="font-serif text-3xl sm:text-5xl font-black text-amberGold tracking-wider uppercase mb-2 drop-shadow-md">
+                        The Chronicles<br/><span class="text-stone-200 font-normal italic text-2xl sm:text-4xl">of</span> Antium
+                    </h1>
+                    
+                    <p class="font-serif italic text-stone-400 text-lg sm:text-xl mb-6">
+                        "The authentic private log of Cassian, Chief Scribe during the expansion and final collapse of the Delta Republic."
+                    </p>
+
+                    <div class="w-24 h-px bg-gradient-to-r from-transparent via-amber-700 to-transparent my-2"></div>
+
+                    <div class="text-xs font-mono text-stone-500 mb-8 max-w-md">
+                        SPECIMEN: ANT-025 | 16 VERBATIM PAPYRUS LEAVES | RADIOCARBON DATED C. 340 B.C.E.
+                    </div>
+
+                    <!-- Interactive Unlock Button -->
+                    <button id="startExcavationBtn" class="pulse-glow group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 text-stone-950 font-serif font-bold tracking-widest uppercase text-sm sm:text-base rounded-md shadow-2xl hover:brightness-125 transition-all duration-300 transform hover:-translate-y-0.5">
+                        <i data-lucide="compass" class="w-5 h-5 transition-transform group-hover:rotate-45"></i>
+                        EXAMINE ARTIFACT / START EXCAVATION
+                    </button>
+                    
+                    <span class="text-[10px] font-mono text-stone-500 mt-3">Clicking unlocks scroll & initiates spatial zoom</span>
+                </div>
+
+                <!-- Footer Prompt -->
+                <div class="relative z-20 text-stone-500 text-xs font-mono tracking-widest uppercase flex items-center gap-2 animate-bounce">
+                    <i data-lucide="arrow-down" class="w-4 h-4"></i> EXCAVATION READY
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 2: SCROLL-DRIVEN READING INTERFACE (CONTAINING ALL 16 ENTRIES) -->
+        <section id="journalReader" class="w-full max-w-4xl mx-auto px-4 py-16 space-y-24 transition-opacity duration-1000 opacity-30 pointer-events-none">
+
+            <!-- Section Header Banner -->
+            <div class="text-center space-y-3 pb-12 border-b border-stone-800/80">
+                <span class="text-xs font-mono tracking-widest text-amberGold uppercase">TRANSLATION & TRANSLITERATION BY DR. H. VANE</span>
+                <h2 class="font-serif text-3xl sm:text-4xl text-stone-200">The 16 Folios of Cassian</h2>
+                <p class="font-body italic text-stone-400 text-lg max-w-xl mx-auto">
+                    Preserved in chronological order. Observe the material transformation of the parchment as political instability mounts.
+                </p>
+            </div>
+
+            <!-- DYNAMIC ENTRIES CONTAINERS (Generated via JavaScript for clean architecture) -->
+            <div id="entriesContainer" class="space-y-32">
+                <!-- Entries 1 to 16 dynamically rendered here -->
+            </div>
+
+            <!-- FINAL CONCLUSION / EPILOGUE CARD -->
+            <div class="relative p-8 sm:p-12 rounded-2xl bg-stone-950 border border-amber-900/40 text-center space-y-6 shadow-2xl">
+                <div class="w-12 h-12 rounded-full bg-amber-950/50 border border-amber-700/50 flex items-center justify-center mx-auto text-amberGold">
+                    <i data-lucide="archive" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-serif text-2xl text-amberGold">END OF RECOVERED MANUSCRIPT</h3>
+                <p class="font-body text-stone-300 text-lg leading-relaxed max-w-2xl mx-auto italic">
+                    "The final fragment was uncovered under 4 meters of alluvial silt and burnt timber. No further records of Cassian exist in the regional archives."
+                </p>
+                <div class="text-xs font-mono text-stone-500">
+                    CATALOG ENTRY CLOSED | MUSEUM OF ANCIENT TEXTS | REGISTRY #4892
+                </div>
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-stone-900 border border-stone-700 text-stone-300 hover:text-amberGold hover:border-amberGold transition-all text-xs font-mono uppercase tracking-wider">
+                    <i data-lucide="arrow-up" class="w-4 h-4"></i> Return to Tabletop
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-20 py-8 border-t border-stone-900 text-center text-xs font-mono text-stone-600 bg-stone-950">
+        <p>Artifact #ANT-025 Interactive Narrative Engine &bull; Antium Digital Humanities Project</p>
+    </footer>
+
+    <!-- JAVASCRIPT ARCHITECTURE -->
+    <script>
+        // --- COMPLETE 16 JOURNAL ENTRIES DATA SET ---
+        const JOURNAL_ENTRIES = [
+            {
+                id: 1,
+                era: "ERA I: EARLY SETTLEMENT",
+                title: "First night in the delta.",
+                date: "",
+                decayStage: "decay-stage-1",
+                text: "We endured forty days of dehydration and sand, blown up by the wind into our eyes. The enfants wailed, the camels collapsed one after another. Almost everyone’s legs and feet were worn out. Decius almost lost the ability to walk…<br>But we are here. There’s water. Real water, crisp and cold from the mountains. There is soil that crumbles dark between my fingers.<br>Underneath the stars tonight Aurelius spoke. He stood on a crate in the firelight and said that we would build something that would outlast us. There would be no kings, but instead a senate where every district has a voice. Every law would be carved in stone. Aurelius is undoubtedly the one that sets these rules. Everyone is grateful of him for guiding us out of our old town that was burned down by our neighboring city and finding us a new home.<br>Aurelius assigned jobs for everyone. Most of them kept their old occupation or did what their family had done. I was to be the scribe, just like my brother Clementius. He didn’t survive the fire that night. He used to tell me that a scribe is what allows memories to last. This was quite awkward for me back then (and still kind of is right now), but I think I understand it somehow.<br>Tonight would be an unforgettable moment for us. I jotted down the names of all 112 people that’s left. My wrist still aches.",
+                fieldNote: {
+                    catalog: "ANT-025-A1",
+                    condition: "Pristine Parchment",
+                    analysis: "Early fine ink formulation. High iron gall density.",
+                    observation: "Settlement identified at the confluence of the twin rivers."
+                }
+            },
+            {
+                id: 2,
+                era: "ERA I: EARLY SETTLEMENT",
+                title: "The third moon.",
+                date: "",
+                decayStage: "decay-stage-1",
+                text: "Planting barley is much easier here at Antium. We had our first harvest today. Old Marta wept and said she had not tasted honey since before the war. I barely remembered what sweetness is like. The world in front of me became blurry as I took my first bite of bread.<br>Aurelius gave the first prayer to our goddess since we arrived at our new city. The sculpture is made of grey stone and not marble that we used to use, but this is the best that we have now. I don’t think anyone minded this detail right now.<br>I feel more and more familiar, as if our old city is coming back. It’s as if war did not happen.",
+                fieldNote: {
+                    catalog: "ANT-025-A2",
+                    condition: "Pristine Parchment",
+                    analysis: "Standard organic leaf fiber.",
+                    observation: "Communal food sharing structures documented."
+                }
+            },
+            {
+                id: 3,
+                era: "ERA II: REPUBLIC CHARTER",
+                title: "The fourth moon.",
+                date: "",
+                decayStage: "decay-stage-1",
+                text: "I drew the boundaries of the districts for our city on a clay tablet with four quarters, one for each clan, and a central forum where the Senate would meet.<br>Torin from the eastern herds argued for open grazing land, and another man asked for a fifth quarter for warriors and veterans…<br>It took nine drafts in general for us to finally settle the charter.<br>The Senate consists of one representative per district, each representative elected every spring by citizens of that district. Nobody can be the representative for over three consecutive years. All agricultural products should be tallied in a public ledger, open to any citizen who asks. Every allocation should be discussed in the senate and recorded in the ledger. Nothing that’s produced publicly goes into private accounts.<br>I don’t think there will ever be hunger again in Antium.",
+                fieldNote: {
+                    catalog: "ANT-025-B1",
+                    condition: "Minimal Edge Fraying",
+                    analysis: "Traces of copper salt preserver on paper margins.",
+                    observation: "First democratic governance mechanisms established."
+                }
+            },
+            {
+                id: 4,
+                era: "ERA II: REPUBLIC CHARTER",
+                title: "The eighth moon.",
+                date: "",
+                decayStage: "decay-stage-2",
+                text: "The city wall is half built. We’re not in a hurry though: I don’t think there are foreign cities around that are menacing or threatening. This land is a true miracle, a pure blessing of the goddess.<br>The Senate met in a tent. I have filled two ledgers already, with every transaction noted down. Torin came to the Senate meeting today, hoping for an expansion in their grazing area and more animals for their herds. He lost the vote, but he still politely shook Aurelius’s and the other representatives’ hands afterwards without quarreling at all.<br>First orbit, first moon<br>I walked along it twice to be sure, but I am proud to state that: the first wall is finished.<br>I take pride in our accomplishments.<br>I am learning that governing is very systematic. Almost all data can be recorded statistically. Grains, births, deaths. The numbers indifferently and honestly record the truth.",
+                fieldNote: {
+                    catalog: "ANT-025-B2",
+                    condition: "Slight Moisture Stains",
+                    analysis: "Carbon-based pigment change detected in text line 3.",
+                    observation: "Defensive wall construction begins."
+                }
+            },
+            {
+                id: 5,
+                era: "ERA II: REPUBLIC CHARTER",
+                title: "Second orbit, third moon",
+                date: "",
+                decayStage: "decay-stage-2",
+                text: "Antium has two thousand residents now, or near it. The Senate house moved out of the temporary tent and it has a roof now. The storehouse is full. Aurelius has been elected for a second term, and wears a white robe.<br>There’s something I have on my mind lately…I have not decided how I feel about the new bowing policy.<br>*\"The First Consul is to be bowed to by all present when entering the Senate house.”&amp;#xA0;*<br>It was me indeed who wrote it on the clay tablet, but I’m not part of the Senate. Aurelius announced this rule at one of the Senate meetings, and no one objected. After it ended, he patted me on the shoulder and said my name. I forgot when he had last called me Cassian rather than just looking in my direction and gesturing for me to jot notes down. Somehow I couldn’t say no, and I didn’t look him in the eyes.",
+                fieldNote: {
+                    catalog: "ANT-025-B3",
+                    condition: "Minor Ink Bleed",
+                    analysis: "High humidity oxidation along top margin.",
+                    observation: "Rejection of external monarchical taxation."
+                }
+            },
+            {
+                id: 6,
+                era: "ERA II: REPUBLIC CHARTER",
+                title: "Fourth orbit",
+                date: "",
+                decayStage: "decay-stage-2",
+                text: "I’ve become more and more busy with all sorts of things in the city that I barely have time for myself to write in my personal journal. On the last orbit we built the canals, one for each district, and this year we started building the harbor. We shipped away our barley and brought back a lot of silver, more than our people had ever seen.<br>The Senate argued for a week about how to spend it. Aurelius wanted a new storehouse, while Torin wanted a lower tax for the people. Lysandra, a quiet senator who just joined last moon, wanted to build a school.<br>We eventually got everything, but all in small sizes.",
+                fieldNote: {
+                    catalog: "ANT-025-C1",
+                    condition: "Salt Deposit Stains",
+                    analysis: "Sodium chloride crystals bound to paper matrix.",
+                    observation: "Expansion into maritime commercial hub."
+                }
+            },
+            {
+                id: 7,
+                era: "ERA III: POLITICAL SHIFT",
+                title: "Seventh orbit",
+                date: "",
+                decayStage: "decay-stage-3",
+                text: "Two thousand residents become three, then four. New districts were formed outside the wall. The Senate granted them representation, but their representatives had to travel three hours to the forum, and the forum had no space for them. They spoke by shouting from the doorway.<br>Aurelius was elected for a fourth term. The charter did not permit this, but the Senate passed a resolution undermining the term limit with the reason of “emergency”. The emergency is a drought that has not yet started but which rumors flew everywhere.<br>It was me again who drafted the resolution, and I feel like that city has grown too used to Aurelius. Nothing is wrong with his rule—he is a very responsible leader. It’s just that…I don’t agree with how exceptions can be made using “emergencies” as an excuse.",
+                fieldNote: {
+                    catalog: "ANT-025-C2",
+                    condition: "Yellowing Papyrus",
+                    analysis: "Acid degradation accelerated by heat exposure.",
+                    observation: "Constitutional breakdown; electoral manipulation."
+                }
+            },
+            {
+                id: 8,
+                era: "ERA III: POLITICAL SHIFT",
+                title: "Seventh orbit, sixth moon",
+                date: "",
+                decayStage: "decay-stage-3",
+                text: "This is the best time Antium has ever had. The golden harvest is here. The market is full of silver and silk. The temple has the giant statue of the marble goddess standing peacefully in the center, with a beautiful garden to the north of it. The Senate even built bathhouses. Aurelius stood in the center of the forum, waving to the citizens as they threw flowers from all directions to him.",
+                fieldNote: {
+                    catalog: "ANT-025-C3",
+                    condition: "Fraying Outer Edges",
+                    analysis: "Slight grease residue on lower corners.",
+                    observation: "State confiscation of agrarian surpluses."
+                }
+            },
+            {
+                id: 9,
+                era: "ERA III: POLITICAL SHIFT",
+                title: "The Senate wanted more water to their temple gardens and the bathhouses today.",
+                date: "",
+                decayStage: "decay-stage-3",
+                text: "Torin and Lysandra argued against them, the census in their hands. The Senate called a vote, Torin and Lysandra lost, their nine votes against the Senate’s twenty-three. They were dismissed. No one looked at them. People turned around and walked away, disappearing into the garden. I felt Torin and Lysandra staring at my back as I turned and left too. Torin was removed from the Senate, reassigned to the eastern district. Lysandra reassigned to harbor accounts. Three other senators resigned in protest. Three new men were brought by Aurelius to take the seats today. No vote was called to make this decision. They simply walked in with Aurelius; the other senators watched, expressionless. The Senate ordered a review of all past public records, as they said, “To ensure the honesty of the records.” I handed the ledgers over. I watched them read, even the men that looked like they have never read ledgers before. They found no discrepancies, though they still appear to be concerned that I have written things they don’t wish to be fully disclosed……",
+                fieldNote: {
+                    catalog: "ANT-025-D1",
+                    condition: "Physical Damage / Torn Corner",
+                    analysis: "Mechanical shear mark along right-hand border.",
+                    observation: "Political purge of original charter founders."
+                }
+            },
+            {
+                id: 10,
+                era: "ERA III: POLITICAL SHIFT",
+                title: "The Senate demanded the access of the ledgers to be granted whenever they wanted to see them, then immediately asked for the past ledges, with seemingly no intention of returning them…...",
+                date: "",
+                decayStage: "decay-stage-3",
+                text: "The commoners…… will only be granted access when the ledgers are returned by the Senate. Lysandra returned from the harbor today. Standing in the senate, holding the speech she wrote herself, she requested the redistribution of the water back to the eastern canal. Her argument was quite solid. Reasonably so, considering she worked on this speech for years. Aurelius ordered me to mark the motion as “noted.” Took less than a second to do. Lysandra was arrested today. According to the Senate, she did not fulfill her duties; there were harbor irregularities in the region where she was assigned. This was the fourth warrant, I might’ve lost track already.",
+                fieldNote: {
+                    catalog: "ANT-025-D2",
+                    condition: "Large Ink Blot Damage",
+                    analysis: "Accidental ink spill chemically matched to Scribe 1.",
+                    observation: "Censorship and historical revisionism."
+                }
+            },
+            {
+                id: 11,
+                era: "ERA IV: TOTAL COLLAPSE",
+                title: "The rains are not coming.",
+                date: "",
+                decayStage: "decay-stage-4",
+                text: "They are now late for nearly three months already. The river had dried to below the lowest mark we have ever measured. The Senate declared an emergency and ordered all grain to be stored in the central granary. The eastern district refused, and I wrote the arrest warrant for Torin ordered by Aurelius. Varro, the grain clerk, was accused of falsifying tallies. I only knew him to be the most honest grain clerk, but Aurelius ordered to arrest him, so I kept quiet. No vote was called, no official sentence was declared. But the guards caught him, beat him in the open, witnessed by a couple hundreds of commoners. Varro saw me, he screamed my name. I stood besides Aurelius, who gave me a questioning gaze when he heard Varro call my name. But I only stood and wrote down the time and place and number of hits. His gaze eventually turned back to stare down at Varro, now motionless on the ground.",
+                fieldNote: {
+                    catalog: "ANT-025-E1",
+                    condition: "Severe Desiccation",
+                    analysis: "Micro-fractures across organic papyrus fibers.",
+                    observation: "Severe ecological stress combined with tyranny."
+                }
+            },
+            {
+                id: 12,
+                era: "ERA IV: TOTAL COLLAPSE",
+                title: "Varro’s wife flees the city with their children.",
+                date: "",
+                decayStage: "decay-stage-4",
+                text: "I offered three months of my salary, though she refused to look at me. The temple takes Varro’s place and holds control of the grain ledger. From then, every request to access it is dismissed as “in review”. After Lysandra’s motion has been noted, the East has fallen into an unsettling stillness. The eastern district declares itself the Free Farmers of the East, barricading the canal under Torin’s leadership. The guard receives orders to kill any Easterner on sight. I questioned a young guard whom I used to teach about the prison cells, and the simple response was, “I obey the state.” I cannot stop hearing the words these days. The sick obedience has taken the place of something else in the city.",
+                fieldNote: {
+                    catalog: "ANT-025-E2",
+                    condition: "Charred Margins & Soot Layers",
+                    analysis: "High heat exposure; thermal oxidation present.",
+                    observation: "Internal military conflict; breakdown of order."
+                }
+            },
+            {
+                id: 13,
+                era: "ERA IV: TOTAL COLLAPSE",
+                title: "Grain sales have been recorded at false prices.",
+                date: "",
+                decayStage: "decay-stage-4",
+                text: "The temple leaders have been stealing the difference. Aurelius gives a speech about the mistake. “Order requires a strong center. Sacrifice is necessary for the future,” he said. The fights intensify. Antium  now is divided between rival territories. I keep going to the sessions, though the Senate Chamber is almost empty. The unbearable silence masks the city. I sent the easterners a letter about the granary guards.",
+                fieldNote: {
+                    catalog: "ANT-025-E3",
+                    condition: "Heavy Surface Abrasion",
+                    analysis: "Particulate dust embedded into outer coating.",
+                    observation: "Economic collapse; desecration of public monuments."
+                }
+            },
+            {
+                id: 14,
+                era: "ERA IV: TOTAL COLLAPSE",
+                title: "Now the water has reached below the lowest mark.",
+                date: "",
+                decayStage: "decay-stage-4",
+                text: "Wells emptied up, and the granary lies empty. I went to the temple to ask. The priests were gone. Their robes hung from the pegs, and the wine cups remained on the table. Someone left in a hurry. I found Aurelius on a visit to the Senate house, sitting alone in the dark, his white robe stained from the bottom. When I asked him what had happened to Antium, he said, “We forgot the Covenant.” Wrong. We repeated them at every festival, every meeting, every arrest. Never have we forgotten those words, but their meaning. I left him. I stood before the old Covenant Stone, hidden behind the new polished one. Pressing my hand against the worn thumbprints. Twenty years of rain had nearly erased them. I stood there for a long time, wondering when our promises had become so easy to abandon.",
+                fieldNote: {
+                    catalog: "ANT-025-F1",
+                    condition: "Fragmented Page Edge",
+                    analysis: "Physical impact marks on paper border.",
+                    observation: "Complete destruction of civic symbols."
+                }
+            },
+            {
+                id: 15,
+                era: "ERA IV: TOTAL COLLAPSE",
+                title: "Twenty-two men still occupy the Senate house, governing a city that has almost nothing left to govern.",
+                date: "",
+                decayStage: "decay-stage-4",
+                text: "People leave through the eastern gate carrying whatever they can fit into a sack. They do not say goodbye, do not even look back at the wall we together built. I recorded each of their names, though no one asked me to. No one has asked me for anything in a long time.",
+                fieldNote: {
+                    catalog: "ANT-025-F2",
+                    condition: "Pitch Resin Stains",
+                    analysis: "Hydrocarbon seal compound verified around document.",
+                    observation: "Evacuation of Antium urban center."
+                }
+            },
+            {
+                id: 16,
+                era: "ERA IV: TOTAL COLLAPSE",
+                title: "The Senate House was ruined.",
+                date: "",
+                decayStage: "decay-stage-4",
+                text: "Both the new and old Covenant Stone had been buried under the ruins. I am not a strong man after all. I left this journal beside it. If anyone will ever find it, the tale of the lost Antium may be told again. My father once told me that a scribe is the memory of a people. I spent twenty-five years believing that remembering was enough. The river did not dry because we were wicked, and the grain did not disappear because we were cruel. If anyone finds these words remember what we once knew: share the grain, share the work. No one eats alone. I write these final words in the dust, hoping that someone, someday, will know that we once believed in them—and meant them.",
+                fieldNote: {
+                    catalog: "ANT-025-FINAL",
+                    condition: "Charred & Heavily Decay-Ruin",
+                    analysis: "Terminal fragment; severe heat degradation.",
+                    observation: "Final testament of Cassian the Scribe."
+                }
+            }
+        ];
+
+        // --- RENDER JOURNAL ENTRIES ---
+        function renderEntries() {
+            const container = document.getElementById('entriesContainer');
+            const drawerList = document.getElementById('drawerList');
+
+            container.innerHTML = '';
+            drawerList.innerHTML = '';
+
+            JOURNAL_ENTRIES.forEach((entry, index) => {
+                // Build Entry Element
+                const entryEl = document.createElement('article');
+                entryEl.id = `entry-${entry.id}`;
+                entryEl.className = `relative p-6 sm:p-10 rounded-xl border ${entry.decayStage} transition-all duration-500 relative overflow-hidden group`;
+
+                entryEl.innerHTML = `
+                    <!-- Header Info -->
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-stone-700/40 pb-4 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <span class="font-mono text-xs px-2.5 py-1 rounded bg-stone-900/60 border border-stone-700/50 text-amberGold">
+                                FOLIO ${String(entry.id).padStart(2, '0')} / 16
+                            </span>
+                            <span class="font-mono text-xs text-stone-500 uppercase">${entry.era}</span>
+                        </div>
+                        <span class="font-mono text-xs italic text-stone-600">${entry.date}</span>
+                    </div>
+
+                    <!-- Layout Grid: Main Text + Field Notes -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        <!-- Transcribed Journal Text -->
+                        <div class="lg:col-span-7 space-y-4 entry-text">
+                            <h3 class="font-serif text-2xl sm:text-3xl font-bold tracking-tight">${entry.title}</h3>
+                            <p class="font-body text-xl sm:text-2xl leading-relaxed tracking-wide italic drop-shadow-sm">
+                                "${entry.text}"
+                            </p>
+                        </div>
+
+                        <!-- Floating Archaeologist Field Note Sidebar -->
+                        <div class="lg:col-span-5 bg-fieldNoteBg border border-stone-800 rounded-lg p-5 space-y-3 text-stone-300 shadow-xl relative">
+                            <div class="flex items-center justify-between border-b border-stone-800 pb-2">
+                                <span class="text-[10px] font-mono text-amberGold tracking-widest flex items-center gap-1.5">
+                                    <i data-lucide="microscope" class="w-3.5 h-3.5"></i> ARCHAEOLOGICAL NOTE
+                                </span>
+                                <span class="text-[10px] font-mono text-stone-500">${entry.fieldNote.catalog}</span>
+                            </div>
+                            
+                            <div class="space-y-2 text-xs font-mono">
+                                <div>
+                                    <span class="text-stone-500 block text-[9px] uppercase">Physical Condition:</span>
+                                    <span class="text-stone-300">${entry.fieldNote.condition}</span>
+                                </div>
+                                <div>
+                                    <span class="text-stone-500 block text-[9px] uppercase">Spectrometric Analysis:</span>
+                                    <span class="text-stone-400 italic">${entry.fieldNote.analysis}</span>
+                                </div>
+                                <div class="pt-2 border-t border-stone-800/60">
+                                    <span class="text-stone-500 block text-[9px] uppercase">Historical Context:</span>
+                                    <span class="text-amberGold/90">${entry.fieldNote.observation}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(entryEl);
+
+                // Build Drawer Jump List Item
+                const drawerItem = document.createElement('a');
+                drawerItem.href = `#entry-${entry.id}`;
+                drawerItem.className = 'block p-3 rounded bg-stone-900/40 border border-stone-800/80 hover:border-amberGold/50 transition-colors group';
+                drawerItem.onclick = () => toggleDrawer(false);
+                drawerItem.innerHTML = `
+                    <div class="flex justify-between items-center text-xs font-mono mb-1">
+                        <span class="text-amberGold">#${String(entry.id).padStart(2, '0')} ${entry.title}</span>
+                    </div>
+                    <div class="text-[10px] text-stone-500 truncate font-serif">${entry.date}</div>
+                `;
+                drawerList.appendChild(drawerItem);
+            });
+
+            // Re-initialize Lucide icons
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        }
+
+        // --- AUDIO SYNTHESIZER (WEB AUDIO API) ---
+        class SoundEngine {
+            constructor() {
+                this.ctx = null;
+                this.isMuted = true;
+                this.windGain = null;
+                this.crackleGain = null;
+            }
+
+            init() {
+                if (this.ctx) return;
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                this.ctx = new AudioCtx();
+
+                // Wind Noise Generator
+                const bufferSize = this.ctx.sampleRate * 2;
+                const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+                const output = noiseBuffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    output[i] = Math.random() * 2 - 1;
+                }
+
+                const whiteNoise = this.ctx.createBufferSource();
+                whiteNoise.buffer = noiseBuffer;
+                whiteNoise.loop = true;
+
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(300, this.ctx.currentTime);
+
+                this.windGain = this.ctx.createGain();
+                this.windGain.gain.setValueAtTime(0.015, this.ctx.currentTime);
+
+                whiteNoise.connect(filter);
+                filter.connect(this.windGain);
+                this.windGain.connect(this.ctx.destination);
+                whiteNoise.start();
+            }
+
+            toggle() {
+                if (!this.ctx) this.init();
+                if (this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+
+                this.isMuted = !this.isMuted;
+                if (this.windGain) {
+                    this.windGain.gain.setTargetAtTime(this.isMuted ? 0 : 0.02, this.ctx.currentTime, 0.1);
+                }
+
+                return !this.isMuted;
+            }
+
+            playClickSFX() {
+                if (!this.ctx || this.isMuted) return;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(440, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(120, this.ctx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.08);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.08);
+            }
+
+            playPageFlipSFX() {
+                if (!this.ctx || this.isMuted) return;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(180, this.ctx.currentTime);
+                osc.frequency.linearRampToValueAtTime(60, this.ctx.currentTime + 0.15);
+                gain.gain.setValueAtTime(0.05, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.15);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.15);
+            }
+        }
+
+        const audioEngine = new SoundEngine();
+
+        // --- DUST PARTICLES CANVAS SIMULATION ---
+        function initDustCanvas() {
+            const canvas = document.getElementById('dustCanvas');
+            const ctx = canvas.getContext('2d');
+            let width = (canvas.width = window.innerWidth);
+            let height = (canvas.height = window.innerHeight);
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const particles = Array.from({ length: 45 }, () => ({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 1.8 + 0.4,
+                alpha: Math.random() * 0.5 + 0.2,
+                vx: (Math.random() - 0.5) * 0.3,
+                vy: Math.random() * 0.4 + 0.1,
+            }));
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+
+                // Volumetric light beam cone limits
+                const lightCenterX = width / 2;
+
+                particles.forEach((p) => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.y > height) p.y = 0;
+                    if (p.x > width) p.x = 0;
+                    if (p.x < 0) p.x = width;
+
+                    // Light shaft brightness boost
+                    const distFromCenter = Math.abs(p.x - lightCenterX);
+                    const beamFactor = Math.max(0, 1 - distFromCenter / (width * 0.35));
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(245, 215, 160, ${p.alpha * (0.3 + beamFactor * 0.7)})`;
+                    ctx.fill();
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        // --- INTERACTION LOGIC & SCROLL TRACKING ---
+        let isExcavating = false;
+        let isMagnifierActive = false;
+
+        const startBtn = document.getElementById('startExcavationBtn');
+        const heroDesk = document.getElementById('heroDesk');
+        const journalReader = document.getElementById('journalReader');
+        const stickyHUD = document.getElementById('stickyHUD');
+        const tableWorkstation = document.getElementById('tableWorkstation');
+
+        // Unlock Scroll & Excavate
+        startBtn.addEventListener('click', () => {
+            audioEngine.init();
+            audioEngine.playClickSFX();
+            
+            isExcavating = true;
+            document.body.classList.remove('locked');
+
+            // Zoom effect on table
+            tableWorkstation.style.transform = 'scale(1.25) translateY(-50px)';
+            tableWorkstation.style.opacity = '0.2';
+
+            setTimeout(() => {
+                journalReader.classList.remove('opacity-30', 'pointer-events-none');
+                journalReader.scrollIntoView({ behavior: 'smooth' });
+                stickyHUD.classList.remove('-translate-y-full');
+            }, 400);
+        });
+
+        // Sticky HUD Scroll Progress & Dynamic Era Updates
+        window.addEventListener('scroll', () => {
+            if (!isExcavating) return;
+
+            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPos = window.scrollY;
+            const progress = Math.min(100, Math.max(0, Math.round((scrollPos / totalHeight) * 100)));
+
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            document.getElementById('progressPercent').innerText = `${progress}% READ`;
+
+            // Era Updates based on current visible entry
+            const entries = document.querySelectorAll('article[id^="entry-"]');
+            entries.forEach((entryEl, idx) => {
+                const rect = entryEl.getBoundingClientRect();
+                if (rect.top <= window.innerHeight * 0.4 && rect.bottom >= 0) {
+                    const eraText = JOURNAL_ENTRIES[idx].era;
+                    document.getElementById('eraIndicator').innerText = eraText;
+                }
+            });
+        });
+
+        // Timeline Drawer Navigation Toggle
+        const drawer = document.getElementById('timelineDrawer');
+        const drawerBtn = document.getElementById('drawerBtn');
+        const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+
+        function toggleDrawer(open) {
+            audioEngine.playClickSFX();
+            if (open) {
+                drawer.classList.remove('translate-x-full');
+            } else {
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        drawerBtn.addEventListener('click', () => toggleDrawer(true));
+        closeDrawerBtn.addEventListener('click', () => toggleDrawer(false));
+
+        // Audio Button Toggle
+        const audioBtn = document.getElementById('audioBtn');
+        audioBtn.addEventListener('click', () => {
+            const isUnmuted = audioEngine.toggle();
+            audioBtn.innerHTML = isUnmuted 
+                ? `<i data-lucide="volume-2" class="w-4 h-4 text-amberGold"></i>` 
+                : `<i data-lucide="volume-x" class="w-4 h-4 text-stone-400"></i>`;
+            if (window.lucide) lucide.createIcons();
+        });
+
+        // Interactive Magnifier Lens System
+        const magnifierBtn = document.getElementById('magnifierBtn');
+        const magnifierLens = document.getElementById('magnifierLens');
+
+        magnifierBtn.addEventListener('click', () => {
+            audioEngine.playClickSFX();
+            isMagnifierActive = !isMagnifierActive;
+            magnifierBtn.classList.toggle('bg-amberGold/20', isMagnifierActive);
+            magnifierBtn.classList.toggle('border-amberGold', isMagnifierActive);
+            document.body.classList.toggle('magnifier-active', isMagnifierActive);
+            
+            if (!isMagnifierActive) {
+                magnifierLens.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isMagnifierActive) return;
+
+            const target = e.target.closest('.entry-text');
+            if (target) {
+                magnifierLens.style.display = 'block';
+                magnifierLens.style.left = `${e.pageX - 80}px`;
+                magnifierLens.style.top = `${e.pageY - 80}px`;
+                magnifierLens.style.backgroundImage = `radial-gradient(circle at center, rgba(255,245,220,0.15) 0%, transparent 70%)`;
+            } else {
+                magnifierLens.style.display = 'none';
+            }
+        });
+
+        // INITIALIZATION ON WINDOW LOAD
+        window.onload = function() {
+            renderEntries();
+            initDustCanvas();
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        };
+    </script>
+</body>
+</html>
