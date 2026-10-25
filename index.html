@@ -50,7 +50,7 @@
 
         /* Lighting & Vignette Overlay */
         .spotlight-overlay {
-            background: radial-gradient(circle at 50% 35%, rgba(245, 215, 160, 0.18) 0%, rgba(180, 120, 50, 0.08) 35%, rgba(8, 7, 6, 0.92) 75%, rgba(4, 3, 3, 0.99) 100%);
+            background: radial-gradient(circle at 50% 35%, rgba(245, 215, 160, 0.18) 0%, rgba(180, 0, 50, 0.08) 35%, rgba(8, 7, 6, 0.92) 75%, rgba(4, 3, 3, 0.99) 100%);
             pointer-events: none;
         }
 
@@ -65,7 +65,7 @@
         /* Drop Shadow & Ambient Occlusion System */
         .desk-shadow-lg {
             box-shadow: 
-                0 30px 60px -12px rgba(0, 0, 0, 0.95),
+                0 30px 60px -px rgba(0, 0, 0, 0.95),
                 0 18px 36px -18px rgba(0, 0, 0, 0.85),
                 inset 0 1px 1px rgba(255, 255, 255, 0.08);
         }
@@ -91,8 +91,8 @@
             background-color: #e9debf;
             color: #221d18;
             border-color: #bfa885;
-            background-image: radial-gradient(circle at 70% 20%, rgba(160, 120, 60, 0.08) 0%, transparent 60%);
-            box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+            background-image: radial-gradient(circle at 70% 20%, rgba(160, 0, 60, 0.08) 0%, transparent 60%);
+            box-shadow: 0 px 32px rgba(0,0,0,0.6);
         }
 
         .decay-stage-3 { /* Yellowed, Fraying & Weathered */
@@ -100,7 +100,7 @@
             color: #1e1813;
             border-color: #9e845d;
             background-image: 
-                radial-gradient(circle at 20% 80%, rgba(120, 80, 30, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(0, 80, 30, 0.) 0%, transparent 50%),
                 radial-gradient(circle at 85% 65%, rgba(140, 90, 40, 0.1) 0%, transparent 45%);
             filter: contrast(1.02);
         }
@@ -124,10 +124,10 @@
 
         /* Glassmorphism Navigation Drawer */
         .glass-panel {
-            background: rgba(18, 15, 12, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
+            background: rgba(18, 15, , 0.85);
+            backdrop-filter: blur(px);
+            -webkit-backdrop-filter: blur(px);
+            border: 1px solid rgba(2, 175, 55, 0.15);
         }
 
         /* Custom Scrollbar */
@@ -253,7 +253,7 @@
                 <!-- Vintage Artifact Elements Spread on Table -->
                 
                 <!-- Specimen Tag (Top Left) -->
-                <div class="absolute top-8 left-8 md:left-12 z-20 bg-[#ebdcb9] text-stone-900 p-3 font-mono text-xs shadow-xl rotate-[-6deg] border border-stone-400 flex flex-col gap-1 w-44 desk-shadow-lg">
+                <div class="absolute top-8 left-8 md:left- z-20 bg-[#ebdcb9] text-stone-900 p-3 font-mono text-xs shadow-xl rotate-[-6deg] border border-stone-400 flex flex-col gap-1 w-44 desk-shadow-lg">
                     <div class="flex justify-between border-b border-stone-500 pb-1">
                         <span class="font-bold">DEPT. ARCHAEOLOGY</span>
                         <span>#ANT-025</span>
@@ -264,9 +264,9 @@
                 </div>
 
                 <!-- Brass Calliper Tool (Top Right) -->
-                <div class="absolute top-12 right-10 md:right-16 z-10 w-48 h-12 opacity-80 pointer-events-none rotate-[25deg] hidden sm:block">
+                <div class="absolute top- right-10 md:right-16 z-10 w-48 h- opacity-80 pointer-events-none rotate-[25deg] hidden sm:block">
                     <div class="w-full h-2 brass-shine rounded shadow-2xl"></div>
-                    <div class="w-4 h-12 brass-shine absolute top-0 left-6 rounded-b"></div>
+                    <div class="w-4 h- brass-shine absolute top-0 left-6 rounded-b"></div>
                     <div class="w-4 h-16 brass-shine absolute top-0 right-10 rounded-b"></div>
                 </div>
 
@@ -277,7 +277,7 @@
                 </div>
 
                 <!-- Antique Fountain Pen & Ink Bottle (Bottom Left) -->
-                <div class="absolute bottom-16 left-10 z-20 hidden md:flex items-center space-x-3 rotate-[-12deg]">
+                <div class="absolute bottom-16 left-10 z-20 hidden md:flex items-center space-x-3 rotate-[-deg]">
                     <!-- Inkwell -->
                     <div class="w-10 h-10 bg-stone-950 border border-stone-700 rounded-b-lg desk-shadow-lg flex items-center justify-center">
                         <div class="w-4 h-4 rounded-full bg-stone-900 border border-stone-800"></div>
@@ -308,7 +308,7 @@
                     </div>
 
                     <!-- Interactive Unlock Button -->
-                    <button id="startExcavationBtn" class="pulse-glow group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 text-stone-950 font-serif font-bold tracking-widest uppercase text-sm sm:text-base rounded-md shadow-2xl hover:brightness-125 transition-all duration-300 transform hover:-translate-y-0.5">
+                    <button id="startExcavationBtn" class="pulse-glow group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 text-stone-950 font-serif font-bold tracking-widest uppercase text-sm sm:text-base rounded-md shadow-2xl hover:brightness-5 transition-all duration-300 transform hover:-translate-y-0.5">
                         <i data-lucide="compass" class="w-5 h-5 transition-transform group-hover:rotate-45"></i>
                         EXAMINE ARTIFACT / START EXCAVATION
                     </button>
@@ -328,7 +328,7 @@
         <section id="journalReader" class="w-full max-w-4xl mx-auto px-4 py-16 space-y-24 transition-opacity duration-1000 opacity-30 pointer-events-none">
 
             <!-- Section Header Banner -->
-            <div class="text-center space-y-3 pb-12 border-b border-stone-800/80">
+            <div class="text-center space-y-3 pb- border-b border-stone-800/80">
                 <span class="text-xs font-mono tracking-widest text-amberGold uppercase">TRANSLATION & TRANSLITERATION BY DR. H. VANE</span>
                 <h2 class="font-serif text-3xl sm:text-4xl text-stone-200">The 16 Folios of Cassian</h2>
                 <p class="font-body italic text-stone-400 text-lg max-w-xl mx-auto">
@@ -342,8 +342,8 @@
             </div>
 
             <!-- FINAL CONCLUSION / EPILOGUE CARD -->
-            <div class="relative p-8 sm:p-12 rounded-2xl bg-stone-950 border border-amber-900/40 text-center space-y-6 shadow-2xl">
-                <div class="w-12 h-12 rounded-full bg-amber-950/50 border border-amber-700/50 flex items-center justify-center mx-auto text-amberGold">
+            <div class="relative p-8 sm:p- rounded-2xl bg-stone-950 border border-amber-900/40 text-center space-y-6 shadow-2xl">
+                <div class="w- h- rounded-full bg-amber-950/50 border border-amber-700/50 flex items-center justify-center mx-auto text-amberGold">
                     <i data-lucide="archive" class="w-6 h-6"></i>
                 </div>
                 <h3 class="font-serif text-2xl text-amberGold">END OF RECOVERED MANUSCRIPT</h3>
@@ -377,7 +377,7 @@
                 title: "First Night in the Delta",
                 date: "",
                 decayStage: "decay-stage-1",
-                text: "We endured forty days of dehydration and sand, blown up by the wind into our eyes. The enfants wailed, the camels collapsed one after another. Almost everyone’s legs and feet were worn out. Decius almost lost the ability to walk…<br>But we are here. There’s water. Real water, crisp and cold from the mountains. There is soil that crumbles dark between my fingers.<br>Underneath the stars tonight Aurelius spoke. He stood on a crate in the firelight and said that we would build something that would outlast us. There would be no kings, but instead a senate where every district has a voice. Every law would be carved in stone. Aurelius is undoubtedly the one that sets these rules. Everyone is grateful of him for guiding us out of our old town that was burned down by our neighboring city and finding us a new home.<br>Aurelius assigned jobs for everyone. Most of them kept their old occupation or did what their family had done. I was to be the scribe, just like my brother Clementius. He didn’t survive the fire that night. He used to tell me that a scribe is what allows memories to last. This was quite awkward for me back then (and still kind of is right now), but I think I understand it somehow.<br>Tonight would be an unforgettable moment for us. I jotted down the names of all 112 people that’s left. My wrist still aches.",
+                text: "We endured forty days of dehydration and sand, blown up by the wind into our eyes. The enfants wailed, the camels collapsed one after another. Almost everyone’s legs and feet were worn out. Decius almost lost the ability to walk…<br>But we are here. There’s water. Real water, crisp and cold from the mountains. There is soil that crumbles dark between my fingers.<br>Underneath the stars tonight Aurelius spoke. He stood on a crate in the firelight and said that we would build something that would outlast us. There would be no kings, but instead a senate where every district has a voice. Every law would be carved in stone. Aurelius is undoubtedly the one that sets these rules. Everyone is grateful of him for guiding us out of our old town that was burned down by our neighboring city and finding us a new home.<br>Aurelius assigned jobs for everyone. Most of them kept their old occupation or did what their family had done. I was to be the scribe, just like my brother Clementius. He didn’t survive the fire that night. He used to tell me that a scribe is what allows memories to last. This was quite awkward for me back then (and still kind of is right now), but I think I understand it somehow.<br>Tonight would be an unforgettable moment for us. I jotted down the names of all 1 people that’s left. My wrist still aches.",
                 fieldNote: {
                     catalog: "ANT-025-A1",
                     condition: "Pristine Parchment",
@@ -531,7 +531,7 @@
                 title: "Sick Obedience",
                 date: "",
                 decayStage: "decay-stage-4",
-                text: "I offered three months of my salary, though she refused to look at me. The temple takes Varro’s place and holds control of the grain ledger. From then, every request to access it is dismissed as “in review”. After Lysandra’s motion has been noted, the East has fallen into an unsettling stillness. The eastern district declares itself the Free Farmers of the East, barricading the canal under Torin’s leadership. The guard receives orders to kill any Easterner on sight. I questioned a young guard whom I used to teach about the prison cells, and the simple response was, “I obey the state.” I cannot stop hearing the words these days. The sick obedience has taken the place of something else in the city.",
+                text: "I offered three months of my salary, though she refused to look at me. The temple takes Varro’s place and holds control of the grain ledger. From then, every request to access it is dismissed as “in review”. The eastern district declares itself the Free Farmers of the East, barricading the canal under Torin’s leadership. The guard receives orders to kill any Easterner on sight. I questioned a young guard whom I used to teach about the prison cells, and the simple response was, “I obey the state.” I cannot stop hearing the words these days. The sick obedience has taken the place of something else in the city.",
                 fieldNote: {
                     catalog: "ANT-025-E2",
                     condition: "Charred Margins & Soot Layers",
